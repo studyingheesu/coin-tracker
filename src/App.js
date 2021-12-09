@@ -22,12 +22,24 @@ const Box = styled.div`
   width: 200px;
   background-color: ${(props) => props.bgColor};
   animation: ${rotationAnimation} 1s linear infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    font-size: 36px;
+    &:hover {
+      font-size: 60px;
+    }
+  }
 `;
 
 function App() {
   return (
     <Wrapper>
-      <Box bgColor={'teal'} />
+      <Box bgColor={'teal'}>
+        <span>😇</span>
+      </Box>
     </Wrapper>
   );
 }
