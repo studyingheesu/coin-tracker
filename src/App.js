@@ -1,5 +1,30 @@
 import styled, { keyframes } from 'styled-components';
 
+const Wrapper = styled.div`
+  display: flex;
+`;
+
+const Emoji = styled.span``;
+const Box = styled.div`
+  height: 200px;
+  width: 200px;
+  background-color: ${(props) => props.bgColor};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ${Emoji} {
+    font-size: 36px;
+    &:hover {
+      font-size: 60px;
+    }
+  }
+`;
+
+const Circle = styled(Box)`
+  border-radius: 100px;
+`;
+
 const rotationAnimation = keyframes`
   0% {
     transform: rotate(0deg);
@@ -14,32 +39,26 @@ const rotationAnimation = keyframes`
     border-radius: 0px;
   }
 `;
-const Wrapper = styled.div`
-  display: flex;
-`;
-const Box = styled.div`
-  height: 200px;
-  width: 200px;
-  background-color: ${(props) => props.bgColor};
+const RotatingBox = styled(Box)`
   animation: ${rotationAnimation} 1s linear infinite;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+`;
 
-  span {
-    font-size: 36px;
-    &:hover {
-      font-size: 60px;
-    }
-  }
+const RequiredInput = styled.input.attrs({ required: true, maxLength: 10 })`
+  background-color: lightgray;
 `;
 
 function App() {
   return (
     <Wrapper>
-      <Box bgColor={'teal'}>
-        <span>😇</span>
-      </Box>
+      <RotatingBox bgColor={'teal'}>
+        <Emoji as="p">😇</Emoji>
+        <Emoji as="p">🥰</Emoji>
+      </RotatingBox>
+      <Emoji as="p">🥸</Emoji>
+      <Circle bgColor={'tomato'} />
+      <Box bgColor={'yellow'} />
+      <RequiredInput type="text" />
+      <RequiredInput type="password" />
     </Wrapper>
   );
 }
