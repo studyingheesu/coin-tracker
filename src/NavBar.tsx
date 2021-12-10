@@ -3,6 +3,8 @@ import styled from 'styled-components';
 interface NavProps {
   titleText: string;
   onClickBack?: () => void;
+  toggleDarkMode: () => void;
+  isDarkMode: boolean;
 }
 
 const GnbBox = styled.div`
@@ -25,12 +27,17 @@ const LeftButton = styled.button`
   display: block;
   width: 100px;
 `;
+const RightButton = styled.button`
+  display: block;
+  width: 100px;
+`;
 
-const NavBar = ({ titleText, onClickBack }: NavProps) => {
+const NavBar = ({ titleText, onClickBack, toggleDarkMode, isDarkMode }: NavProps) => {
   return (
     <GnbBox>
       {onClickBack && <LeftButton onClick={onClickBack}>&larr</LeftButton>}
       <Title>{titleText}</Title>
+      <RightButton onClick={toggleDarkMode}>{isDarkMode ? 'Light' : 'Dark'}</RightButton>
     </GnbBox>
   );
 };

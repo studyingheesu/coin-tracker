@@ -16,9 +16,10 @@ interface ICoinHistory {
 
 interface ChartProps {
   coinId: string;
+  isDarkMode: boolean;
 }
 
-const Chart = ({ coinId }: ChartProps) => {
+const Chart = ({ coinId, isDarkMode }: ChartProps) => {
   const { isLoading, data } = useQuery<ICoinHistory[]>(['ohlcv', coinId], () => fetchCoinHistory(coinId), {
     refetchInterval: 5000,
   });
@@ -40,9 +41,9 @@ const Chart = ({ coinId }: ChartProps) => {
           ]}
           height={350}
           options={{
-            // theme: {
-            //   mode: 'dark',
-            // },
+            theme: {
+              mode: isDarkMode ? 'dark' : 'light',
+            },
             chart: {
               type: 'candlestick',
               height: 350,
@@ -57,7 +58,6 @@ const Chart = ({ coinId }: ChartProps) => {
               type: 'datetime',
               tooltip: { enabled: false },
             },
-            // colors: [theme.primaryColor],
           }}
         />
       )}

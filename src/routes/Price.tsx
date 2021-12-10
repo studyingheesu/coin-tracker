@@ -5,7 +5,7 @@ const List = styled.ul``;
 const Item = styled.li`
   padding: 10px;
   margin: 20px 0;
-  background-color: ${(props) => props.theme.secondBgColor};
+  background-color: ${(props) => props.theme.secondAccentColor};
   border-radius: 10px;
 `;
 

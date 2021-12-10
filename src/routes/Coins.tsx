@@ -12,7 +12,7 @@ const Container = styled.div`
 const CoinList = styled.ul``;
 
 const Coin = styled.li`
-  background-color: white;
+  background-color: ${(props) => props.theme.secondBgColor};
   color: ${(props) => props.theme.darkTextColor};
   border-radius: 15px;
   margin-bottom: 10px;
@@ -48,7 +48,12 @@ interface CoinInterface {
   type: string;
 }
 
-const Coins = () => {
+interface CoinsProps {
+  toggleDarkMode: () => void;
+  isDarkMode: boolean;
+}
+
+const Coins = ({ toggleDarkMode, isDarkMode }: CoinsProps) => {
   const titleText = '코인';
   const { isLoading, data: coins } = useQuery<CoinInterface[]>('coins', fetchCoins);
 
@@ -57,7 +62,7 @@ const Coins = () => {
       <Helmet>
         <title>{titleText}</title>
       </Helmet>
-      <NavBar titleText={titleText} />
+      <NavBar titleText={titleText} toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
       <Container>
         {isLoading ? (
           <LoadingIndicator>Loading...</LoadingIndicator>
