@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet';
 import { useQuery } from 'react-query';
 import { Link, Route, Switch, useLocation, useParams, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
@@ -145,11 +146,15 @@ const Coin = () => {
   );
 
   const isLoading = isLoadingInfo || isLoadingPrice;
+  const titleText = state?.name ? state.name : isLoading ? 'Loading...' : info?.name;
 
   return (
     <Container>
+      <Helmet>
+        <title>{titleText}</title>
+      </Helmet>
       <Header>
-        <Title>{state?.name ? state.name : isLoading ? 'Loading...' : info?.name}</Title>
+        <Title>{titleText}</Title>
       </Header>
       {isLoading ? (
         <LoadingIndicator>Loading...</LoadingIndicator>
