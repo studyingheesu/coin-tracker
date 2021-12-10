@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 interface NavProps {
   titleText: string;
-  back?: () => void;
+  onClickBack?: () => void;
 }
 
 const GnbBox = styled.div`
@@ -20,9 +20,16 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-const NavBar = ({ titleText, back }: NavProps) => {
+// should work on this
+const LeftButton = styled.button`
+  display: block;
+  width: 100px;
+`;
+
+const NavBar = ({ titleText, onClickBack }: NavProps) => {
   return (
     <GnbBox>
+      {onClickBack && <LeftButton onClick={onClickBack}>&larr</LeftButton>}
       <Title>{titleText}</Title>
     </GnbBox>
   );

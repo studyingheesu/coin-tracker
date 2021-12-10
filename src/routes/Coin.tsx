@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet';
 import { useQuery } from 'react-query';
-import { Link, Route, Switch, useLocation, useParams, useRouteMatch } from 'react-router-dom';
+import { Link, Route, Switch, useHistory, useLocation, useParams, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchInfo, fetchPrice } from '../api';
 import NavBar from '../NavBar';
@@ -137,12 +137,15 @@ const Coin = () => {
   const isLoading = isLoadingInfo || isLoadingPrice;
   const titleText = state?.name ? state.name : isLoading ? 'Loading...' : info?.name || '';
 
+  const history = useHistory();
+  const onClickBack = () => history.goBack();
+
   return (
     <>
       <Helmet>
         <title>{titleText}</title>
       </Helmet>
-      <NavBar titleText={titleText} />
+      <NavBar titleText={titleText} onClickBack={() => onClickBack()} />
       <Container>
         {isLoading ? (
           <LoadingIndicator>Loading...</LoadingIndicator>
