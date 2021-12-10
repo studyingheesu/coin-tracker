@@ -17,7 +17,7 @@ const Header = styled.header`
 
 const Title = styled.h1`
   font-size: 48px;
-  color: ${(props) => props.theme.accentColor};
+  color: ${(props) => props.theme.primaryColor};
 `;
 
 const LoadingIndicator = styled.span`
@@ -27,7 +27,8 @@ const LoadingIndicator = styled.span`
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.primaryColor};
+  color: ${(props) => props.theme.bgColor};
   padding: 10px 20px;
   border-radius: 10px;
 `;
@@ -57,10 +58,10 @@ const Tab = styled.span<{ isOn: boolean }>`
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => (props.isOn ? props.theme.accentColor : props.theme.primaryColor)};
   padding: 7px 0px;
   border-radius: 10px;
-  color: ${(props) => (props.isOn ? props.theme.accentColor : props.theme.textColor)};
+  color: ${(props) => props.theme.bgColor};
   a {
     display: block;
   }
