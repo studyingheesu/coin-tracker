@@ -3,23 +3,12 @@ import { useQuery } from 'react-query';
 import { Link, Route, Switch, useLocation, useParams, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchInfo, fetchPrice } from '../api';
+import NavBar from '../NavBar';
 import Chart from './Chart';
 import Price from './Price';
 
 const Container = styled.div`
-  padding: 0px 20px;
-`;
-
-const Header = styled.header`
-  height: 15vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Title = styled.h1`
-  font-size: 48px;
-  color: ${(props) => props.theme.primaryColor};
+  padding: 10px 20px;
 `;
 
 const LoadingIndicator = styled.span`
@@ -146,68 +135,68 @@ const Coin = () => {
   );
 
   const isLoading = isLoadingInfo || isLoadingPrice;
-  const titleText = state?.name ? state.name : isLoading ? 'Loading...' : info?.name;
+  const titleText = state?.name ? state.name : isLoading ? 'Loading...' : info?.name || '';
 
   return (
-    <Container>
+    <>
       <Helmet>
         <title>{titleText}</title>
       </Helmet>
-      <Header>
-        <Title>{titleText}</Title>
-      </Header>
-      {isLoading ? (
-        <LoadingIndicator>Loading...</LoadingIndicator>
-      ) : (
-        <>
-          <Overview>
-            <OverviewItem>
-              <span>Rank:</span>
-              <span>{info?.rank}</span>
-            </OverviewItem>
-            <OverviewItem>
-              <span>Symbol:</span>
-              <span>${info?.symbol}</span>
-            </OverviewItem>
-            <OverviewItem>
-              <span>Price:</span>
-              <span>${priceInfo?.quotes.USD.price.toFixed(3)}</span>
-            </OverviewItem>
-          </Overview>
-          <Description>{info?.description}</Description>
-          <Overview>
-            <OverviewItem>
-              <span>Total Suply:</span>
-              <span>{priceInfo?.total_supply}</span>
-            </OverviewItem>
-            <OverviewItem>
-              <span>Max Supply:</span>
-              <span>{priceInfo?.max_supply}</span>
-            </OverviewItem>
-          </Overview>
-          <Tabs>
-            <Tab isOn={priceMatch !== null}>
-              <Link to={`/${coinId}/price`} replace>
-                Price
-              </Link>
-            </Tab>
-            <Tab isOn={chartMatch !== null}>
-              <Link to={`/${coinId}/chart`} replace>
-                Chart
-              </Link>
-            </Tab>
-          </Tabs>
-          <Switch>
-            <Route path={`/:coinId/price`}>
-              <Price />
-            </Route>
-            <Route path={`/:coinId/chart`}>
-              <Chart coinId={coinId} />
-            </Route>
-          </Switch>
-        </>
-      )}
-    </Container>
+      <NavBar titleText={titleText} />
+      <Container>
+        {isLoading ? (
+          <LoadingIndicator>Loading...</LoadingIndicator>
+        ) : (
+          <>
+            <Overview>
+              <OverviewItem>
+                <span>Rank:</span>
+                <span>{info?.rank}</span>
+              </OverviewItem>
+              <OverviewItem>
+                <span>Symbol:</span>
+                <span>${info?.symbol}</span>
+              </OverviewItem>
+              <OverviewItem>
+                <span>Price:</span>
+                <span>${priceInfo?.quotes.USD.price.toFixed(3)}</span>
+              </OverviewItem>
+            </Overview>
+            <Description>{info?.description}</Description>
+            <Overview>
+              <OverviewItem>
+                <span>Total Suply:</span>
+                <span>{priceInfo?.total_supply}</span>
+              </OverviewItem>
+              <OverviewItem>
+                <span>Max Supply:</span>
+                <span>{priceInfo?.max_supply}</span>
+              </OverviewItem>
+            </Overview>
+            <Tabs>
+              <Tab isOn={priceMatch !== null}>
+                <Link to={`/${coinId}/price`} replace>
+                  Price
+                </Link>
+              </Tab>
+              <Tab isOn={chartMatch !== null}>
+                <Link to={`/${coinId}/chart`} replace>
+                  Chart
+                </Link>
+              </Tab>
+            </Tabs>
+            <Switch>
+              <Route path={`/:coinId/price`}>
+                <Price />
+              </Route>
+              <Route path={`/:coinId/chart`}>
+                <Chart coinId={coinId} />
+              </Route>
+            </Switch>
+          </>
+        )}
+      </Container>
+    </>
   );
 };
 
