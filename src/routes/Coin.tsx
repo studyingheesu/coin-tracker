@@ -187,10 +187,14 @@ const Coin = () => {
           </Overview>
           <Tabs>
             <Tab isOn={priceMatch !== null}>
-              <Link to={`/${coinId}/price`}>Price</Link>
+              <Link to={`/${coinId}/price`} replace>
+                Price
+              </Link>
             </Tab>
             <Tab isOn={chartMatch !== null}>
-              <Link to={`/${coinId}/chart`}>Chart</Link>
+              <Link to={`/${coinId}/chart`} replace>
+                Chart
+              </Link>
             </Tab>
           </Tabs>
           <Switch>
