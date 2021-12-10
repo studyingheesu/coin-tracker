@@ -11,7 +11,7 @@ const GnbBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.whiteColor};
 `;
 
 const Title = styled.h1`

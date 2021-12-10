@@ -59,7 +59,7 @@ table {
 body {
   font-family: 'Noto Sans KR', sans-serif;
   background-color: ${(props) => props.theme.bgColor};
-  color:${(props) => props.theme.textColor}
+  color:${(props) => props.theme.darkTextColor}
 }
 a{
   text-decoration: none;
