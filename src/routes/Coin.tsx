@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { Link, Route, Switch, useLocation, useParams, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
-import { fetchInfo } from '../api';
+import { fetchInfo, fetchPrice } from '../api';
 import Chart from './Chart';
 import Price from './Price';
 
@@ -138,8 +138,10 @@ const Coin = () => {
   const chartMatch = useRouteMatch('/:coinId/chart');
 
   const { isLoading: isLoadingInfo, data: info } = useQuery<InfoData>(['info', coinId], () => fetchInfo(coinId));
-  const { isLoading: isLoadingPrice, data: priceInfo } = useQuery<PriceData>(['price', coinId], () =>
-    fetchInfo(coinId)
+  const { isLoading: isLoadingPrice, data: priceInfo } = useQuery<PriceData>(
+    ['price', coinId],
+    () => fetchPrice(coinId),
+    { refetchInterval: 20000 } // this affects children re-render, so I can't stay at one point on the chart if interval is too short. // how to fix??
   );
 
   const isLoading = isLoadingInfo || isLoadingPrice;
@@ -163,8 +165,8 @@ const Coin = () => {
               <span>${info?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>Open Source:</span>
-              <span>{info?.open_source ? 'Yes' : 'No'}</span>
+              <span>Price:</span>
+              <span>${priceInfo?.quotes.USD.price.toFixed(3)}</span>
             </OverviewItem>
           </Overview>
           <Description>{info?.description}</Description>

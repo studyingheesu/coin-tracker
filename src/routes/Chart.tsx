@@ -20,7 +20,9 @@ interface ChartProps {
 }
 
 const Chart = ({ coinId }: ChartProps) => {
-  const { isLoading, data } = useQuery<ICoinHistory[]>(['ohlcv', coinId], () => fetchCoinHistory(coinId));
+  const { isLoading, data } = useQuery<ICoinHistory[]>(['ohlcv', coinId], () => fetchCoinHistory(coinId), {
+    refetchInterval: 5000,
+  });
   return (
     <div>
       {isLoading ? (
