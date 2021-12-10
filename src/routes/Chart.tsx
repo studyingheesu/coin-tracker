@@ -2,7 +2,6 @@ import { useQuery } from 'react-query';
 import ApexChart from 'react-apexcharts';
 
 import { fetchCoinHistory } from '../api';
-import { theme } from '../theme';
 
 interface ICoinHistory {
   time_open: string;
@@ -23,57 +22,42 @@ const Chart = ({ coinId }: ChartProps) => {
   const { isLoading, data } = useQuery<ICoinHistory[]>(['ohlcv', coinId], () => fetchCoinHistory(coinId), {
     refetchInterval: 5000,
   });
+
   return (
     <div>
       {isLoading ? (
         'Loading chart...'
       ) : (
         <ApexChart
-          type="line"
+          type="candlestick"
           series={[
             {
-              name: 'Price',
-              data: data?.map((price) => price.close),
+              data: data?.map((tick) => ({
+                x: new Date(tick.time_open),
+                y: [tick.open, tick.high, tick.low, tick.close],
+              })),
             },
           ]}
+          height={350}
           options={{
-            theme: {
-              mode: 'dark',
-            },
+            // theme: {
+            //   mode: 'dark',
+            // },
             chart: {
-              height: 300,
-              width: 500,
-              toolbar: {
-                show: false,
-              },
-              background: 'transparent',
-            },
-            grid: { show: false },
-            stroke: {
-              curve: 'smooth',
-              width: 4,
+              type: 'candlestick',
+              height: 350,
             },
             yaxis: {
               show: false,
-            },
-            xaxis: {
-              axisBorder: { show: false },
-              axisTicks: { show: false },
-              labels: { show: false },
-              type: 'datetime',
-              categories: data?.map((price) => price.time_close),
-              tooltip: { enabled: false },
-            },
-            fill: {
-              type: 'gradient',
-              gradient: { gradientToColors: [theme.accentColor], stops: [0, 100] },
-            },
-            colors: [theme.primaryColor],
-            tooltip: {
-              y: {
-                formatter: (value) => `$${value.toFixed(2)}`,
+              tooltip: {
+                enabled: false,
               },
             },
+            xaxis: {
+              type: 'datetime',
+              tooltip: { enabled: false },
+            },
+            // colors: [theme.primaryColor],
           }}
         />
       )}
