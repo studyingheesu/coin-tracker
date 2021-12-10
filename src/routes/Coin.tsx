@@ -161,6 +161,8 @@ const Coin = () => {
               <span>{priceInfo?.max_supply}</span>
             </OverviewItem>
           </Overview>
+          <Link to={`/${coinId}/price`}>Price</Link>
+          <Link to={`/${coinId}/chart`}>Chart</Link>
           <Switch>
             <Route path={`/:coinId/price`}>
               <Price />
