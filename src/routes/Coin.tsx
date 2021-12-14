@@ -86,12 +86,7 @@ interface InfoData {
   last_data_at: string;
 }
 
-interface CoinProps {
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
-}
-
-const Coin = ({ isDarkMode, toggleDarkMode }: CoinProps) => {
+const Coin = () => {
   const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>();
 
@@ -116,12 +111,7 @@ const Coin = ({ isDarkMode, toggleDarkMode }: CoinProps) => {
       <Helmet>
         <title>{titleText}</title>
       </Helmet>
-      <NavBar
-        titleText={titleText}
-        onClickBack={() => onClickBack()}
-        toggleDarkMode={toggleDarkMode}
-        isDarkMode={isDarkMode}
-      />
+      <NavBar titleText={titleText} onClickBack={() => onClickBack()} />
       <Container>
         {isLoading ? (
           <LoadingIndicator>Loading...</LoadingIndicator>
@@ -169,7 +159,7 @@ const Coin = ({ isDarkMode, toggleDarkMode }: CoinProps) => {
                 <Price data={priceInfo?.quotes.USD} />
               </Route>
               <Route path={`/:coinId/chart`}>
-                <Chart coinId={coinId} isDarkMode={isDarkMode} />
+                <Chart coinId={coinId} />
               </Route>
             </Switch>
           </>

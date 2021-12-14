@@ -1,10 +1,10 @@
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { isDarkModeAtom } from './atoms';
 
 interface NavProps {
   titleText: string;
   onClickBack?: () => void;
-  toggleDarkMode: () => void;
-  isDarkMode: boolean;
 }
 
 const GnbBox = styled.div`
@@ -32,7 +32,11 @@ const RightButton = styled.button`
   width: 100px;
 `;
 
-const NavBar = ({ titleText, onClickBack, toggleDarkMode, isDarkMode }: NavProps) => {
+const NavBar = ({ titleText, onClickBack }: NavProps) => {
+  const isDarkMode = useRecoilValue(isDarkModeAtom);
+  const setIsDarkMode = useSetRecoilState(isDarkModeAtom);
+  const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
+
   return (
     <GnbBox>
       {onClickBack && <LeftButton onClick={onClickBack}>&larr</LeftButton>}

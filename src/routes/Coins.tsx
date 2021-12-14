@@ -48,12 +48,7 @@ interface CoinInterface {
   type: string;
 }
 
-interface CoinsProps {
-  toggleDarkMode: () => void;
-  isDarkMode: boolean;
-}
-
-const Coins = ({ toggleDarkMode, isDarkMode }: CoinsProps) => {
+const Coins = () => {
   const titleText = '코인';
   const { isLoading, data: coins } = useQuery<CoinInterface[]>('coins', fetchCoins);
 
@@ -62,7 +57,7 @@ const Coins = ({ toggleDarkMode, isDarkMode }: CoinsProps) => {
       <Helmet>
         <title>{titleText}</title>
       </Helmet>
-      <NavBar titleText={titleText} toggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
+      <NavBar titleText={titleText} />
       <Container>
         {isLoading ? (
           <LoadingIndicator>Loading...</LoadingIndicator>
