@@ -1,5 +1,5 @@
 {
-  "name": "react-masterclass",
+  "name": "coin-tracker",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -55,5 +55,5 @@
     "@types/react-router-dom": "^5.3.2",
     "@types/styled-components": "^5.1.17"
   },
-  "homepage": "https://studyingheesu.github.io/react-masterclass"
+  "homepage": "https://studyingheesu.github.io/coin-tracker"
 }
